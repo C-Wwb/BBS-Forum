@@ -1,0 +1,27 @@
+/*
+[name]»ÆÉ«[/name]
+[iconbgcolor]#ffd102[/iconbgcolor]
+name£ºxinrui_iuni_mobile
+Powered by xinrui
+*/
+.header,.ausPtNum li.on,.indexLogin a,.btn1,.btn_pn,.btn4{background-color:#ffd102;color:#282828 !important;}
+.header h1,.postUserAttr a, .postUserAttr span{color:#282828 !important;}
+.btFixed li .cur span{background-image:url(bt_icon_cur.png);}
+.forumListHeader{background-color:#ffe159;color:#282828;}
+.forumListHeader .fl_icon{border-color:#282828;}
+.btn2,.forumListTab li a.cur, .forumListTab li.a a{border-color:#ffd102;}
+.btn2{color:#3189d3 !important;}
+.btn_pn_grey{background:#ddd;}
+.btFixed{background:#282828;}
+.btFixed a{color:#9d9d9d}
+.logo{background:url(logo.png) center center no-repeat;background-size:auto 100%;}
+.logo img{filter:alpha(opacity=0);-moz-opacity:0;opacity:0;}
+.topMenu{background-image:url(topMenu.png);}
+.goBack{background:url(goBack.png);}
+.topSort{background:url(topSort.png);}
+.topShare{background:url(topShare.png);}
+.iconEdit{background:url(iconEdit.png);}
+.btFixed li a.btPost{background:#ffd102 url(iconEdit.png) center center no-repeat;background-size: 100% auto;}
+.forumListHeader .fa_fav{background-image:url(fav.png);}
+.userHead h1{color:#fff !important;}
+a:active,a:hover {outline: 0 none;color:#ffd102;}

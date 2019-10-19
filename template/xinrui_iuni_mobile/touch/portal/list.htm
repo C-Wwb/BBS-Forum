@@ -1,0 +1,86 @@
+<!--{template common/header}-->
+<!--{eval $list = array();}-->
+<!--{eval $wheresql = category_get_wheresql($cat);}-->
+<!--{eval $list = category_get_list($cat, $wheresql, $page);}-->
+<header class="header">
+	<a class="goBack fl" href="javascript:history.back()">返回</a>
+	<!--{if $cat[others]}--><a class="topSort fr" href="#subMenu">分类</a><!--{/if}-->
+	<h1>$navtitle</h1>
+</header>
+<div class="container">
+	<!--{eval $list = category_get_list($cat, $wheresql, $page);}-->
+
+	<!--{if $cat[subs]}-->
+	<!--下级分类-->
+	<div class="nvBar">
+		<div class="subNv">
+			<ul>
+				<!--{eval $i = 1;}-->
+				<!--{loop $cat[subs] $value}-->
+				<!--{if $i != 1}--><!--{/if}--><li><a href="{$portalcategory[$value['catid']]['caturl']}">$value[catname]</a></li><!--{eval $i--;}-->
+				<!--{/loop}-->
+			</ul>
+		</div>
+	</div>
+	<!--{/if}-->
+
+	<!--{if $cat[others]}-->
+	<div id="subMenu" class="subMenu">
+		<div class="subMenuBox">
+			<h3>相关分类</h3>
+			<ul>
+				<!--{loop $cat[others] $value}-->
+				<li><a href="{$portalcategory[$value['catid']]['caturl']}">$value[catname]</a></li>
+				<!--{/loop}-->
+			</ul>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(function() {
+			$('#subMenu').mmenu({
+				autoHeight	: true,
+				navbar		: {
+					title 	: false
+				},
+				offCanvas	: {
+					position	: "right",
+					zposition	: "front",
+					modal		: true
+				}
+			});
+		});
+	</script>
+	<!--{/if}-->
+
+	<div class="xr_article_list">
+		<ul>
+			<!--{loop $list['list'] $value}-->
+				<!--{eval $highlight = article_title_style($value);}-->
+				<!--{eval $article_url = fetch_article_url($value);}-->
+				<li <!--{if !$value[pic]}-->class="noPic"<!--{/if}-->>
+				<a href="$article_url" $highlight>
+					<h3>$value[title]<!--{if $value[status] == 1}-->({lang moderate_need})<!--{/if}--></h3>
+					<div class="article_info">
+						<!--{if $value[pic]}-->
+						<div class="artPic">
+							<img src="$value[pic]" alt="$value[title]" class="tn" />
+						</div>
+						<!--{/if}-->
+						<p>$value[summary]</p>
+						<div class="article_attr">
+							<span class="fr"> $value[dateline]</span>
+							<!--{if $value[catname] && $cat[subs]}--><label>$value[catname]</label><!--{/if}-->
+						</div>
+					</div>
+				</a>
+				</li>
+			<!--{/loop}-->
+		</ul>
+	</div>
+	<!--{if $list['multi']}--><div class="pgs cl">{$list['multi']}</div><!--{/if}-->
+
+</div>
+<!--{template common/btfixed}-->
+<!--{template common/nav}-->
+<!--{template common/footer}-->
+

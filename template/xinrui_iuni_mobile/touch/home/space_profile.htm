@@ -1,0 +1,84 @@
+<!--{if $_GET['mycenter'] && !$_G['uid']}-->
+	<!--{eval dheader('Location:member.php?mod=logging&action=login');exit;}-->
+<!--{/if}-->
+<!--{template common/header}-->
+<style>
+.header1 h2 {width: 4rem;
+    height: .88rem;
+    line-height: .88rem;
+    margin: 0 auto;
+    text-align: center;
+    font-size: .36rem;
+    color: #fff;
+    font-weight: normal;}
+</style>
+<!--{if !$_GET['mycenter']}-->
+	<!-- header start -->
+	<div class="userHead header1">
+		<a href="javascript:;" onclick="history.go(-1);" class="goBack z"></a>
+		<h2><!--{if $_G['uid'] == $space['uid']}-->{lang myprofile}<!--{else}-->$space[username]{lang otherprofile}<!--{/if}--></h2>
+		<div class="user_avatar">
+			<div class="avatar_m"><img src="<!--{avatar($space[uid], middle, true)}-->" /></div>
+			<h2>$space[username]<span>$_G[group][grouptitle]</span></h2>
+		</div>
+	</div>
+	<!-- header end -->
+	<!-- userinfo start -->
+	<div class="userProfile">
+		<div class="myinfo_list cl">
+			<ul>
+				<li><a href="javascript:;"><span>$space[credits]</span>{lang credits}</a></li>
+				<!--{loop $_G[setting][extcredits] $key $value}-->
+				<!--{if $value[title]}-->
+				<li><a href="javascript:;"><span>{$space["extcredits$key"]} $value[unit]</span>$value[title]</a></li>
+				<!--{/if}-->
+				<!--{/loop}-->
+			</ul>
+		</div>
+		<!--{if $space['uid'] == $_G['uid']}-->
+		<p><a href="member.php?mod=logging&action=logout&formhash={FORMHASH}" class="btn3">{lang logout_mobile}</a></p>
+		<!--{/if}-->
+	</div>
+	<!-- userinfo end -->
+
+<!--{else}-->
+
+	<!-- header start -->
+		
+	<!--{if $_G['setting']['domain']['app']['mobile']}-->
+		{eval $nav = 'http://'.$_G['setting']['domain']['app']['mobile'];}
+	<!--{else}-->
+		{eval $nav = "forum.php";}
+	<!--{/if}-->
+
+	<!-- header end -->
+	<div class="userHead header1">
+		<a href="javascript:;" onclick="history.go(-1);" class="goBack z">返回</a>
+		<h2>个人中心</h2>
+		<div class="user_avatar">
+			<div class="avatar_m"><img src="<!--{avatar($_G[uid], middle, true)}-->" /></div>
+			<h2>$_G[username]<span>$_G[group][grouptitle]</span></h2>
+		</div>
+	</div>
+
+	<!-- userInfoNv start -->
+	<div class="userInfoNv">
+		<div class="myinfo_list cl">
+			<ul>
+				<li class="unv1"><a href="home.php?mod=space&uid={$_G[uid]}&do=favorite&view=me&type=thread"><span></span>{lang myfavorite}</a></li>
+				<li class="unv2"><a href="home.php?mod=space&uid={$_G[uid]}&do=thread&view=me"><span></span>{lang mythread}</a></li>
+				<li class="unv3"><a href="home.php?mod=space&do=pm"><span></span>{lang mypm}<!--{if $_G[member][newpm]}--><img src="{STATICURL}image/mobile/images/icon_msg.png" /><!--{/if}--></a></li>
+				<li class="unv4"><a href="home.php?mod=space&uid={$_G[uid]}&do=profile"><span></span>{lang myprofile}</a></li>
+			</ul>
+		</div>
+		<p><a href="member.php?mod=logging&action=logout&formhash={FORMHASH}" class="btn3">{lang logout_mobile}</a></p>
+	</div>
+	<!-- userInfoNv end -->
+	<!-- header end -->
+
+<!--{/if}-->
+<!--{eval $nofooter = true;}-->
+<!--{template common/btfixed}-->
+<!--{template common/footer}-->
+
+

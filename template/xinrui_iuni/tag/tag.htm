@@ -1,0 +1,29 @@
+<!--{template common/header}-->
+<!--{if $type != 'countitem'}-->
+
+<div id="ct" class="wp cl">
+	<h1 class="mt"><img class="vm" src="template/xinrui_iuni/images/tag.png" alt="tag" /> {lang tag}</h1>
+	<div class="bp" style="padding-bottom:50px;">
+		
+		<div class="tagSch">
+			<form method="post" action="misc.php?mod=tag" class="pns">
+				<input type="text" name="name" size="30" />&nbsp;
+				<button type="submit">{lang search}</button>
+			</form>
+			</div>
+			<div class="tagMod mtw cl" style="width:900px;margin-left:auto;margin-right:auto;">
+				<!--{if $tagarray}-->
+					<!--{loop $tagarray $tag}-->
+						<a href="misc.php?mod=tag&id=$tag[tagid]" title="$tag[tagname]" target="_blank" class="xi2">$tag[tagname]</a>
+					<!--{/loop}-->
+				<!--{else}-->
+					<p class="emp">{lang no_tag}</p>
+				<!--{/if}-->
+			</div>
+		
+	</div>
+</div>
+<!--{else}-->
+$num
+<!--{/if}-->
+<!--{template common/footer}-->

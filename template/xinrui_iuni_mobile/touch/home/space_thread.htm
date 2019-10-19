@@ -1,0 +1,89 @@
+<!--{template common/header}-->
+
+<!-- header start -->
+<header class="header">
+	<a href="home.php?mod=space&uid=1&do=profile&mycenter=1" class="goBack z">返回</a>
+	<h1>{lang mythread}</h1>
+</header>
+<!-- header end -->
+<!-- main threadlist start -->
+<div class="threadlist">
+	<ul>
+	<!--{if $list}-->
+		<!--{loop $list $thread}-->
+			<li>
+			<!--{if $viewtype == 'reply' || $viewtype == 'postcomment'}-->
+			<a href="forum.php?mod=redirect&goto=findpost&ptid=$thread[tid]&pid=$thread[pid]">
+			<h3 class="threadSubject">$thread[subject]</h3>
+			<!--{else}-->
+			<a href="forum.php?mod=viewthread&tid=$thread[tid]" {if $thread['displayorder'] == -1}class="grey"{/if}>
+			<h3 class="threadSubject">$thread[subject]</h3>
+			<!--{/if}-->
+			<div class="threadListTit">
+				<div class="h_avatar"><!--{avatar($thread[authorid],small)}--></div>
+				<h4>
+					<div class="count y">
+						<span class="views icon"><!--{if $thread['isgroup'] != 1}-->$thread[views]<!--{else}-->{$groupnames[$thread[tid]][views]}<!--{/if}--></span>
+						<span class="replies icon">{$thread[replies]}</span>
+					</div>
+					$thread[author]
+					<!--
+					<!--{if in_array($thread['displayorder'], array(1, 2, 3, 4))}-->
+						<span class="icon_top"><img src="{STATICURL}image/mobile/images/icon_top.png"></span>
+					<!--{elseif $thread['digest'] > 0}-->
+						<span class="icon_top"><img src="{STATICURL}image/mobile/images/icon_digest.png"></span>
+					<!--{elseif $thread['attachment'] == 2 && $_G['setting']['mobile']['mobilesimpletype'] == 0}-->
+						<span class="icon_tu"><img src="{STATICURL}image/mobile/images/icon_tu.png"></span>
+					<!--{/if}-->
+					-->
+				</h4>
+				<p>发布于 $thread[dateline]</p>
+			</div>			
+			</a>
+			</li>
+		<!--{/loop}-->
+	<!--{else}-->
+		<li class="noData">{lang no_related_posts}</li>
+	<!--{/if}-->
+	</ul>
+	$multi
+</div>
+<!-- main threadlist end -->
+<!--{eval $nofooter = true;}-->
+<!--{template common/footer}-->
+
+
+
+
+
+<li>
+				<a href="forum.php?mod=viewthread&tid=$thread[tid]&extra=$extra" $thread[highlight] >
+					<h3 class="threadSubject">
+						{$thread[subject]}
+					</h3>
+					<div class="threadListTit">
+						<div class="h_avatar"><!--{avatar($thread[authorid],small)}--></div>
+						<h4>
+							<div class="count y">
+								<span class="views icon"><!--{if $thread['isgroup'] != 1}-->$thread[views]<!--{else}-->{$groupnames[$thread[tid]][views]}<!--{/if}--></span>
+								<span class="replies icon">{$thread[replies]}</span>
+							</div>
+							$thread[author]
+							<!--
+							<!--{if in_array($thread['displayorder'], array(1, 2, 3, 4))}-->
+								<span class="icon_top"><img src="{STATICURL}image/mobile/images/icon_top.png"></span>
+							<!--{elseif $thread['digest'] > 0}-->
+								<span class="icon_top"><img src="{STATICURL}image/mobile/images/icon_digest.png"></span>
+							<!--{elseif $thread['attachment'] == 2 && $_G['setting']['mobile']['mobilesimpletype'] == 0}-->
+								<span class="icon_tu"><img src="{STATICURL}image/mobile/images/icon_tu.png"></span>
+							<!--{/if}-->
+							-->
+						</h4>
+						<p>发布于 $thread[dateline]</p>
+					</div>
+				</a>
+			</li>
+
+
+<!--{template common/btfixed}-->
+

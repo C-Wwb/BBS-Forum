@@ -1,0 +1,49 @@
+<!--{template common/header}-->
+<!--{if $type != 'countitem'}-->
+<style>
+.taglist {padding:.1rem .2rem;}
+.taglist a,.taglist span{float:left;margin:.1rem;font-size:.24rem;height:.56rem;background:#f4f4f4;display: block;line-height:.56rem;padding:0 .2rem;border-radius:.05rem;}
+.tag {padding:.2rem 0 .1rem;font-size:.26rem;border-top:solid 1px #eee;}
+.tag span{display:block;width:.36rem;height:.36rem;margin:.1rem .1rem 0 0;background:url(img/nv9.png) 0 0 no-repeat;background-size:contain;float:left;}
+</style>
+<div id="ct" class="wp cl">
+	<header class="header">
+	<a class="goBack fl" href="javascript:history.back()">返回</a>
+	<h1>标签</h1>
+</header>
+	<div class="bm">
+		<div class="bm_c">
+			<div class="search_Con" style="min-height:2.4rem;">
+
+<form method="post" action="misc.php?mod=tag"  id="searchform" class="searchform" >
+			<div class="search">
+				<input type="text" name="name" class="inp" autocomplete="off" id="scform_srchtxt" placeholder="输入要搜索的标签"/>
+				<div class="scbar_btn_td">
+				<!--<button type="submit"><em>{lang search}</em></button>-->
+				<input type="hidden" name="searchsubmit" value="yes"></input>
+				<input type="submit" value="搜索" class="btn1" id="scform_submit"></input>
+				</div>
+				</div>
+			</form>
+
+
+
+</div>
+			<div class="taglist pb cfix">
+				<!--{if $tagarray}-->
+					<!--{loop $tagarray $tag}-->
+						<a href="misc.php?mod=tag&id=$tag[tagid]" title="$tag[tagname]" target="_blank" class="xi2">$tag[tagname]</a>
+					<!--{/loop}-->
+				<!--{else}-->
+					<p class="emp">{lang no_tag}</p>
+				<!--{/if}-->
+			</div>
+		</div>
+	</div>
+</div>
+<!--{else}-->
+$num
+<!--{/if}-->
+<!--{template common/btfixed}-->
+<!--{template common/nav}-->
+<!--{template common/footer}-->
