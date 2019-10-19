@@ -1,0 +1,21 @@
+<!--{template touch/common/header}-->
+<!-- header start -->
+<header class="header">
+	<a href="forum.php?forumlist=1" class="goBack fl">返回</a>
+	<h1>选择您要发帖的板块</h1>
+</header>
+<!-- header end -->
+
+<div class="forumSelect cfix">
+	<ul>
+	 {loop $_G['cache'][forums] $forum}
+      {if $forum[type]!='group' && $forum['status']=='1'}
+      <li><a href="forum.php?mod=post&action=newthread&fid=$forum['fid']">$forum['name']</a></li>
+      {/if}
+      {/loop}
+	  </ul>
+</div>
+
+<!--{template common/btfixed}-->
+<!--{template touch/common/footer}-->
+

@@ -1,0 +1,144 @@
+<!--{if $_G['setting']['mobile']['mobilehotthread'] && $_GET['forumlist'] != 1}-->
+	<!--{eval dheader('Location:portal.php?mod=index&mobile=2');exit;}-->
+<!--{/if}-->
+<!--{template common/header}-->
+
+<script type="text/javascript">
+	function getvisitclienthref() {
+		var visitclienthref = '';
+		if(ios) {
+			visitclienthref = 'https://itunes.apple.com/cn/app/zhang-shang-lun-tan/id489399408?mt=8';
+		} else if(andriod) {
+			visitclienthref = 'http://www.discuz.net/mobile.php?platform=android';
+		}
+		return visitclienthref;
+	}
+</script>
+
+<!--{if $_GET['visitclient']}-->
+
+<header class="header">
+    <div class="nav">
+		<span>{lang warmtip}</span>
+    </div>
+</header>
+<div class="cl">
+	<div class="clew_con">
+		<h2 class="tit">{lang zsltmobileclient}</h2>
+		<p>{lang visitbbsanytime}<input class="redirect button" id="visitclientid" type="button" value="{lang clicktodownload}" href="" /></p>
+		<h2 class="tit">{lang iphoneandriodmobile}</h2>
+		<p>{lang visitwapmobile}<input class="redirect button" type="button" value="{lang clicktovisitwapmobile}" href="$_GET[visitclient]" /></p>
+	</div>
+</div>
+<script type="text/javascript">
+	var visitclienthref = getvisitclienthref();
+	if(visitclienthref) {
+		$('#visitclientid').attr('href', visitclienthref);
+	} else {
+		window.location.href = '$_GET[visitclient]';
+	}
+</script>
+
+<!--{else}-->
+
+<!-- header start -->
+<!--{if $showvisitclient}-->
+
+<div class="visitclienttip vm" style="display:block;">
+	<a href="javascript:;" id="visitclientid" class="btn_download">{lang downloadnow}</a>	
+	<p>
+		{lang downloadzslttoshareview}
+	</p>
+</div>
+<script type="text/javascript">
+	var visitclienthref = getvisitclienthref();
+	if(visitclienthref) {
+		$('#visitclientid').attr('href', visitclienthref);
+		$('.visitclienttip').css('display', 'block');
+	}
+</script>
+
+<!--{/if}-->
+<header class="header p_header">
+	<a class="topMenu fl" href="#mainNv">²Ëµ¥</a>
+	<!--{if !$_G[uid] && !$_G['connectguest']}-->
+	<a class="topLogin fr" href="member.php?mod=logging&action=login"></a>
+	<!--{else}-->
+	<a class="topLogin fr" href="home.php?mod=space&uid=$_G[uid]&do=profile&mycenter=1">
+		<!--{avatar($_G[uid])}-->
+	</a>
+	<!--{/if}-->
+	<h1 class="logo"><img src="template/xinrui_iuni_mobile/touch/images/img/logo.png"></h1>
+</header>
+<!-- header end -->
+
+<div class="container cfix">
+<!-- main forumlist start -->
+
+<!--{loop $catlist $key $cat}-->
+<div class="catlist">
+	<div class="subforumshow cfix" href="#sub_forum_$cat[fid]">
+		<span class="o y">
+			<img src="template/xinrui_iuni_mobile/touch/images/img/collapsed_<!--{if !$_G[setting][mobile][mobileforumview]}-->yes<!--{else}-->no<!--{/if}-->.png?t">
+		</span>
+		<h2>$cat[name]</h2>
+	</div>
+	<div id="sub_forum_$cat[fid]" class="sub_forum">
+		<ul>
+			<!--{loop $cat[forums] $forumid}-->
+			<!--{eval $forum=$forumlist[$forumid];}-->
+			<li class="cfix">
+				<div class="f_icon">
+					<!--{if $forum[icon]}-->
+						$forum[icon]
+					<!--{else}-->
+						<img src="{IMGDIR}/forum{if $forum[folder]}_new{/if}.gif" alt="$forum[name]" />
+					<!--{/if}-->
+				</div>
+				<a class="forum_a" href="forum.php?mod=forumdisplay&fid={$forum['fid']}">
+					<h3>
+						<span class="y f_count"><!--{echo dnumber($forum[threads])}--> / <!--{echo dnumber($forum[posts])}--></span>
+						{$forum[name]}
+						<!--{if $forum[todayposts] > 0}-->
+						<em class="num">($forum[todayposts])</em>
+						<!--{/if}-->
+					</h3>
+					<p>$forum[description]</p>
+				</a>
+			</li>
+			<!--{/loop}-->
+		</ul>
+	</div>
+</div>
+<!--{/loop}-->
+
+<!-- main forumlist end -->
+<!--{hook/index_middle_mobile}-->
+<script type="text/javascript">
+	(function() {
+		<!--{if !$_G[setting][mobile][mobileforumview]}-->
+			$('.sub_forum').css('display', 'block');
+		<!--{else}-->
+			$('.sub_forum').css('display', 'none');
+		<!--{/if}-->
+		$('.subforumshow').on('click', function() {
+			var obj = $(this);
+			var subobj = $(obj.attr('href'));
+			if(subobj.css('display') == 'none') {
+				subobj.css('display', 'block');
+				obj.find('img').attr('src', 'template/xinrui_iuni_mobile/touch/images/img/collapsed_yes.png');
+			} else {
+				subobj.css('display', 'none');
+				obj.find('img').attr('src', 'template/xinrui_iuni_mobile/touch/images/img/collapsed_no.png');
+			}
+		});
+	 })();
+</script>
+<!--{/if}-->
+</div>
+
+<!--{template common/btfixed}-->
+<!--{template common/nav}-->
+<!--{template common/footer}-->
+
+

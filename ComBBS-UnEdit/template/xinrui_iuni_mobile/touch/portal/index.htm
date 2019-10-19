@@ -1,0 +1,105 @@
+<!--{template common/header}-->
+<header class="header p_header">
+	<a class="topMenu fl" href="#mainNv">菜单</a>
+	<!--{if !$_G[uid] && !$_G['connectguest']}-->
+	<a class="topLogin fr" href="member.php?mod=logging&action=login"></a>
+	<!--{else}-->
+	<a class="topLogin fr" href="home.php?mod=space&uid=$_G[uid]&do=profile&mycenter=1"><!--{avatar($_G[uid])}--></a>
+	<!--{/if}-->
+	<h1 class="logo"><img  src="template/xinrui_iuni_mobile/touch/images/img/logo.png"></h1>
+</header>
+<div class="container">
+	<script src="template/xinrui_iuni_mobile/touch/images/js/TouchSlide.1.1.js" type="text/javascript"></script>
+	<!--二级导航-->
+	<div class="nvBar">
+		<div class="subNv">
+			<!--{block/30}-->
+		</div>
+	</div>
+
+	<!--焦点图-->
+	<div class="xrSlider" id="xrSlider">
+		<!--{block/24}-->
+	</div>
+	<script type="text/javascript">
+	TouchSlide({ 
+		slideCell:"#xrSlider",
+		titCell:".sliderNum li",
+		mainCell:".sliderCon ul", 
+		effect:"leftLoop",
+		autoPlay:true //自动播放
+	});
+	</script>
+	<!-- 栏目导航 -->
+	<div class="cNav cfix pb">
+	<!--{block/31}-->
+	</div>
+<!-- 首页广告1 -->
+<div class="adPic pb">
+<!--{block/32}-->
+</div>
+
+	<!--热帖推荐-->
+	<div class="hotPosts cfix pb">
+		<!--{block/25}-->
+	</div>
+
+	<!--图文精选-->
+	<div class="pb">
+		<div class="hdTit cfix">
+			<h2>图文精选</h2>
+		</div>
+		<div class="ausPt cfix" id="ausPt">
+			<!--{block/27}-->
+		</div>
+		<script type="text/javascript">
+		TouchSlide({ 
+			slideCell:"#ausPt",
+			titCell:".ausPtNum li",
+			mainCell:".ausPtCon", 
+			effect:"leftLoop"
+		});
+		</script>
+	</div>
+
+
+	<!--最新主题-->
+	<div class="pb">
+		<div class="hdTit cfix">
+			<h2>最新主题</h2>
+			<span><a href="forum.php?mod=guide&view=newthread">更多&gt;&gt;</a></span>
+		</div>
+		<div class="newPosts">
+			<!--{block/26}-->
+		</div>
+	</div>
+
+
+	<!-- 图片广告2 -->
+	<div class="adPic pb">
+	<!--{block/34}-->
+	</div>
+
+	<!--版块导航-->
+	<div class="pb">
+		<div class="hdTit cfix">
+			<h2>版块导航</h2>
+			<span><a href="forum.php?forumlist=1&mobile=2">更多&gt;&gt;</a></span>
+		</div>
+		<div class="coluNv cfix">
+			<!--{block/28}-->
+		</div>
+	</div>
+
+	<!--{if !$_G[uid] && !$_G['connectguest']}-->
+	<div class="pb indexLogin">
+		<p>登录之后可以体验更多功能！</p>
+		<a href="member.php?mod=logging&action=login">立即登录</a>
+	</div>
+	<!--{/if}-->
+</div>
+
+<!--{template common/btfixed}-->
+<!--{template common/footer}-->
+
+

@@ -1,0 +1,119 @@
+<!--{template common/header}-->
+<!--{eval $list = array();}-->
+<!--{eval $wheresql = category_get_wheresql($cat);}-->
+<!--{eval $list = category_get_list($cat, $wheresql, $page);}-->
+<div id="pt" class="bm cl">
+	<div class="z">
+		<a href="./" class="nvhm" title="{lang homepage}">$_G[setting][bbname]</a> <em>&rsaquo;</em>
+		<a href="$_G[setting][navs][1][filename]">{lang portal}</a> <em>&rsaquo;</em>
+		<!--{loop $cat[ups] $value}--> <a href="{$portalcategory[$value['catid']]['caturl']}">$value[catname]</a><em>&rsaquo;</em><!--{/loop}-->
+		$cat[catname]
+	</div>
+	<div class="y">
+		<!--{if $_G[setting][rssstatus] && !$_GET['archiveid']}--><a href="portal.php?mod=rss&catid=$cat[catid]" class="rss" target="_blank" title="RSS">{lang rss_subscribe_this}</a><!--{/if}-->
+	</div>
+</div>
+
+<!--{ad/text/wp a_t}-->
+<style id="diy_style" type="text/css">#frameL0490C {  border:0px none !important;}#portal_block_18 {  border:0px none !important;}#framewEFSQp {  border:0px none !important;}#portal_block_19 {  border:0px none !important;}#frameOk4ItT {  border:0px none !important;}#portal_block_20 {  border:0px none !important;}</style>
+<div class="wp">
+	<!--[diy=fullAd]--><div id="fullAd" class="area"></div><!--[/diy]-->
+</div>
+
+<div id="ct" class="ct2 wp cl">
+	<div class="mn">
+		<!--{ad/articlelist/mbm hm/1}--><!--{ad/articlelist/mbm hm/2}-->
+		<!--[diy=listcontenttop]--><div id="listcontenttop" class="area"></div><!--[/diy]-->
+		<div class="xr_article_list bp">
+			<div class="title">
+				<h1>$cat[catname]</h1>
+			</div>
+			<!--{if $cat[subs]}-->
+			<div class="subMenu">
+				{lang sub_category}:&nbsp;&nbsp;
+				<!--{eval $i = 1;}-->
+				<!--{loop $cat[subs] $value}-->
+				<!--{if $i != 1}--><span class="pipe">|</span><!--{/if}--><a href="{$portalcategory[$value['catid']]['caturl']}" class="xi2">$value[catname]</a><!--{eval $i--;}-->
+				<!--{/loop}-->
+			</div>
+			<!--{/if}-->
+			<div class="xld">
+				<ul>
+				<!--{loop $list['list'] $value}-->
+				<!--{eval $highlight = article_title_style($value);}-->
+				<!--{eval $article_url = fetch_article_url($value);}-->
+				<li <!--{if !$value[pic]}-->class="nopic"<!--{/if}--> >
+					<!--{if $value[pic]}-->
+						<div class="atc"><a href="$article_url" target="_blank"><img src="$value[pic]" alt="$value[title]" class="tn" /></a></div>
+					<!--{/if}-->
+					<h3><a href="$article_url" target="_blank" $highlight>$value[title]</a> <!--{if $value[status] == 1}-->({lang moderate_need})<!--{/if}--></h3>
+					<div class="info">$value[summary]</div>
+					<div class="attr">
+						<!--{if $value[catname] && $cat[subs]}-->{lang category}: <label class="xg1"><a href="{$portalcategory[$value['catid']]['caturl']}" >$value[catname]</a></label>&nbsp;&nbsp;<!--{/if}-->
+						<span class="xg1"> $value[dateline]</span>
+						<!--{if $_G['group']['allowmanagearticle'] || ($_G['group']['allowpostarticle'] && $value['uid'] == $_G['uid'] && (empty($_G['group']['allowpostarticlemod']) || $_G['group']['allowpostarticlemod'] && $value['status'] == 1)) || $categoryperm[$value['catid']]['allowmanage']}-->
+						<span class="xg1">
+							<span class="pipe">|</span>
+							<label><a href="portal.php?mod=portalcp&ac=article&op=edit&aid=$value[aid]">{lang edit}</a></label>
+							<span class="pipe">|</span>
+							<label><a href="portal.php?mod=portalcp&ac=article&op=delete&aid=$value[aid]" id="article_delete_$value[aid]" onclick="showWindow(this.id, this.href, 'get', 0);">{lang delete}</a></label>
+						</span>
+						<!--{/if}-->
+					</div>
+				</li>
+			<!--{/loop}-->
+			</ul>
+			</div>
+			<!--[diy=listloopbottom]--><div id="listloopbottom" class="area"></div><!--[/diy]-->
+		</div>
+		<!--{ad/articlelist/mbm hm/3}--><!--{ad/articlelist/mbm hm/4}-->
+		<!--{if $list['multi']}--><div class="pgs bp cl" style="box-shadow:none;">{$list['multi']}</div><!--{/if}-->
+
+		<!--[diy=diycontentbottom]--><div id="diycontentbottom" class="area"></div><!--[/diy]-->
+
+	</div>
+	<div class="sd pph">
+		<div class="sd_btn bp">
+			<!--{if ($_G['group']['allowpostarticle'] || $_G['group']['allowmanagearticle'] || $categoryperm[$catid]['allowmanage'] || $categoryperm[$catid]['allowpublish']) && empty($cat['disallowpublish'])}-->
+			<a href="portal.php?mod=portalcp&ac=article&catid=$cat[catid]" target="_blank" class="post_btn">{lang article_publish}</a>
+			<!--{/if}-->
+			<a href="plugin.php?id=dsu_paulsign:sign" target="_blank" class="signin">¬Ì…œ«©µΩ</a>
+		</div>
+
+		<div class="drag">
+			<!--[diy=diyrighttop]--><div id="diyrighttop" class="area"></div><!--[/diy]-->
+		</div>
+
+		<!--{if $cat[others]}-->
+		<div class="bp colu">
+			<div class="blocktitle title">
+				<span class="titletext" >{lang category_related}</span>
+			</div>
+			<div class="dxb_bc" style="padding-bottom:20px;">
+			<ul class="module cl xl xl2 cl">
+				<!--{loop $cat[others] $value}-->
+				<li> <a href="{$portalcategory[$value['catid']]['caturl']}">$value[catname]</a></li>
+				<!--{/loop}-->
+			</ul>
+			</div>
+		</div>
+		<!--{/if}-->
+		<div class="hot_post bp">
+			<!--[diy=diy12]--><div id="diy12" class="area"><div id="frameOk4ItT" class="cl_frame_bm frame move-span cl frame-1"><div id="frameOk4ItT_left" class="column frame-1-c"><div id="frameOk4ItT_left_temp" class="move-span temp"></div><!--{block/20}--></div></div></div><!--[/diy]-->
+		</div>
+		<div class="hot_act bp">
+		<!--[diy=diy10]--><div id="diy10" class="area"><div id="framewEFSQp" class="cl_frame_bm frame move-span cl frame-1"><div id="framewEFSQp_left" class="column frame-1-c"><div id="framewEFSQp_left_temp" class="move-span temp"></div><!--{block/19}--></div></div></div><!--[/diy]-->
+		</div>
+		<div class="about bp" style="display:none;"><!--[diy=diy5]--><div id="diy5" class="area"><div id="frameL0490C" class="cl_frame_bm frame move-span cl frame-1"><div id="frameL0490C_left" class="column frame-1-c"><div id="frameL0490C_left_temp" class="move-span temp"></div><!--{block/18}--></div></div></div><!--[/diy]--></div>
+		<div class="drag">
+			<!--[diy=diy2]--><div id="diy2" class="area"></div><!--[/diy]-->
+		</div>
+
+	</div>
+</div>
+
+<div class="wp mtn">
+	<!--[diy=diy3]--><div id="diy3" class="area"></div><!--[/diy]-->
+</div>
+
+<!--{template common/footer}-->

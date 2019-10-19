@@ -1,0 +1,88 @@
+/*
+
+[name]黑色[/name]
+
+[iconbgcolor]#323436[/iconbgcolor]
+
+name：xinrui_iuni
+
+Powered by xinrui
+
+*/
+
+body{background:#f4f4f4;}
+
+a:hover{color:#323436;}
+
+#hd{background:#323436;}
+
+
+#nv li.a{margin:0;}
+
+#nv li a:hover,#nv li.hover a:hover,#nv li.a a{background:#454648;text-decoration:none;}
+
+
+.no_login{color:#454648}
+
+#scbar_type{background:url(scbar_type.png) no-repeat 43px 17px #454648;color:#ccc;}
+
+#scbar #scbar_txt{background:#454648;}
+
+#um i.arrow-w{background:url(um_arrow.png) 0 0 no-repeat;}
+
+#scbar_btn {background:#454648 url(scbar_btn.png) 0 0 no-repeat;}
+
+
+
+#hd .p_pop.h_pop,.hot_act .act_item a:hover,#fwin_nav .pn.pnc,#comment .ptn .pn,.esMod .hd li.on,.hot_act .act_item a,.pages a:hover,.pages span{background:#323436;}
+
+#hd .p_pop.h_pop a{border-bottom-color:#454648;}
+
+.sd_btn a.post_btn,.listTit .post_btn,.xr_list .ttp .a span,.xr_guide .ttp li.a a,#fwin_content_login .rfm .pn.pnc,#main_message .rfm .pn.pnc{background-color:#323436;}
+
+#hd .p_pop.h_pop a:hover,.listTit h1,.tl_tit .views.y,.xr_waterfall li:hover,.xr_waterfall li .desc em,.category_newlist li a:hover,.listTit a:hover,.tl_tit h3 em a:hover,.tl_tit h3 a.xst:hover,.tl_txt a:hover,.xr_article_list .xld li h3 a:hover,.newest li h3 .forumname,#um .um_info a:hover,#um .um_op a:hover{color:#454648;}
+
+#comment .ptn .pn:hover,.sd_btn a.post_btn:hover,.listTit .post_btn:hover,#fwin_nav .pn.pnc:hover,#fwin_content_login .rfm .pn.pnc:hover,#main_message .rfm .pn.pnc:hover{background-color:#cc2a31;}
+
+.sd_btn a.signin{color:#999 !important;}
+
+.xr_tl #fd_page_bottom .pg strong,.xr_tl #fd_page_bottom .pg a:hover,.pgt .pg strong,.pgt .pg a:hover,.pgs .pg strong,.pgs .pg a:hover{background:#e8373f;border-color:#e8373f;}
+
+#fastpostsubmit,#postsubmit.pn.pnc,#postsubmit.pn,#nv_portal.pg_portalcp #ct #issuance.pn.pnc{background:#e8373f;}
+
+
+
+/* 重定义按钮 */
+
+.pgs #newspecial, .pgs #newspecialtmp { float: left; background: url(pn_post.png) no-repeat 0 0; }
+
+#post_reply, #post_replytmp { float: left; background: url(pn_reply.png) no-repeat 0 0; }
+
+.sd_btn a,.listTit .post_btn{background-image:url(sd_btn.png);background-repeat:no-repeat;}
+
+
+
+#category_grid.xr_grid .subjectbox h4{background:url(saixuan_ico_1.png) 10px 0 no-repeat;}
+
+#category_grid.xr_grid .replaybox h4{background:url(saixuan_ico_2.png) 10px 0 no-repeat;}
+
+#category_grid.xr_grid .hottiebox h4{background:url(saixuan_ico_3.png) 10px 0 no-repeat;}
+
+#category_grid.xr_grid .subjectbox h4:hover{background:url(saixuan_ico_1.png) 10px -22px no-repeat;}
+
+#category_grid.xr_grid .replaybox h4:hover{background:url(saixuan_ico_2.png) 10px -22px no-repeat;}
+
+#category_grid.xr_grid .hottiebox h4:hover{background:url(saixuan_ico_3.png) 10px -22px no-repeat;}
+
+.xr_tl .tf a.allpost_ico{background: url(saixuan_ico_1.png) no-repeat left top;}
+
+.xr_tl .tf a.lastpost_ico{background: url(saixuan_ico_2.png) no-repeat left top;}
+
+.xr_tl .tf a.hotpost_ico{background: url(saixuan_ico_3.png) no-repeat left top;}
+
+.xr_tl .tf a.digestpost_ico{background: url(saixuan_ico_4.png) no-repeat left top;}
+
+.xr_tl .tf a:hover {background-position:left bottom;transition: 300ms; -webkit-transition: 300ms; -moz-transition: 300ms;}
+#hd .p_pop.h_pop, .hot_act .act_item a:hover, #fwin_nav .pn.pnc, #comment .ptn .pn, .esMod .hd li.on, .hot_act .act_item a, .pages a:hover, .pages span, .esModBox .hd li.on, .xr_list .ttp .a a {background:#323436;}
+.xr_waterfall li:hover{border-color:#323436;}
+.xr_form .pn.pnc, .xr_form .pn {background:#323436;}

@@ -1,0 +1,56 @@
+<!--{if !$subforumonly}-->
+<div class="threadlist">
+	<ul>
+	<!--{if $_G['forum_threadcount']}-->
+		<!--{loop $_G['forum_threadlist'] $key $thread}-->
+			<!--{if !$_G['setting']['mobile']['mobiledisplayorder3'] && $thread['displayorder'] > 0}-->
+				{eval continue;}
+			<!--{/if}-->
+			<!--{if $thread['displayorder'] > 0 && !$displayorder_thread}-->
+				{eval $displayorder_thread = 1;}
+			<!--{/if}-->
+			<!--{if $thread['moved']}-->
+				<!--{eval $thread[tid]=$thread[closed];}-->
+			<!--{/if}-->
+			<li>
+				<a href="forum.php?mod=viewthread&tid=$thread[tid]&extra=$extra">
+					<div class="threadListTit">
+						<div class="h_avatar"><!--{avatar($thread[authorid],small)}--></div>
+						<h4>
+							<div class="count y">
+								<span class="views icon"><!--{if $thread['isgroup'] != 1}-->$thread[views]<!--{else}-->{$groupnames[$thread[tid]][views]}<!--{/if}--></span>
+								<span class="replies icon">{$thread[replies]}</span>
+							</div>
+							$thread[author]
+						</h4>
+						<p>发布于 $thread[dateline]</p>
+					</div>
+					<h3 class="threadSubject">
+						<!--{if $thread['special'] == 1}-->
+							<span class="threadType">{lang thread_poll}</span>
+						<!--{elseif $thread['special'] == 2}-->
+							<span class="threadType">{lang thread_trade}</span>
+						<!--{elseif $thread['special'] == 3}-->
+							<span class="threadType">{lang thread_reward}</span>
+						<!--{elseif $thread['special'] == 4}-->
+							<span class="threadType">{lang thread_activity}</span>
+						<!--{elseif $thread['special'] == 5}-->
+							<span class="threadType">{lang thread_debate}</span>
+						<!--{elseif in_array($thread['displayorder'], array(1, 2, 3, 4))}-->
+							<span class="threadAttr">$_G[setting][threadsticky][3-$thread[displayorder]]</span>
+						<!--{elseif $thread['digest'] > 0}-->
+							<span class="threadAttr">精华</span>
+						<!--{/if}-->
+						<span  $thread[highlight]>{$thread[subject]}</span>
+					</h3>
+				</a>
+			</li>
+		<!--{/loop}-->
+	<!--{else}-->
+		<li class="noData">{lang forum_nothreads}</li>
+	<!--{/if}-->
+	</ul>
+</div>
+$multipage
+<!--{/if}-->
+

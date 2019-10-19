@@ -1,0 +1,132 @@
+<!--{template touch/common/header}-->
+<!-- header start -->
+<header class="header">
+	<a href="forum.php?forumlist=1" class="goBack fl">返回</a>
+	<!--{if ($subexists && $_G['page'] == 1) || ($_G['forum']['threadtypes'] && $_G['forum']['threadtypes']['listable']) || count($_G['forum']['threadsorts']['types']) > 0}-->
+	<a class="topSort fr" href="#subMenu">子版块</a>
+	<h1><!--{eval echo strip_tags($_G['forum']['name']) ? strip_tags($_G['forum']['name']) : $_G['forum']['name'];}--></h1>
+	<div id="subMenu" class="subMenu">
+		<div class="subMenuBox">
+			<h3>子版块</h3>
+			<ul>
+				<!--{loop $sublist $sub}-->
+				<li><a href="forum.php?mod=forumdisplay&fid={$sub[fid]}">{$sub['name']}</a></li>
+				<!--{/loop}-->
+			</ul>
+			<h3>主题分类</h3>
+			<!--{if ($_G['forum']['threadtypes'] && $_G['forum']['threadtypes']['listable']) || count($_G['forum']['threadsorts']['types']) > 0}-->
+				<ul id="thread_types">
+					<li id="ttp_all" {if !$_GET['typeid'] && !$_GET['sortid']}class="a"{/if}>
+						<a href="forum.php?mod=forumdisplay&fid=$_G[fid]{if $_G['forum']['threadsorts']['defaultshow']}&filter=sortall&sortall=1{/if}{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">全部分类
+						<span class="num">($_G[forum][threads])</span>
+						</a>
+					</li>
+					<!--{if $_G['forum']['threadtypes']}-->
+						<!--{loop $_G['forum']['threadtypes']['types'] $id $name}-->
+							<!--{if $_GET['typeid'] == $id}-->
+							<li class="a"><a href="forum.php?mod=forumdisplay&fid=$_G[fid]{if $_GET['sortid']}&filter=sortid&sortid=$_GET['sortid']{/if}{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}"><!--{if $_G[forum][threadtypes][icons][$id] && $_G['forum']['threadtypes']['prefix'] == 2}--><img class="vm" src="$_G[forum][threadtypes][icons][$id]" alt="" /> <!--{/if}-->$name<!--{if $showthreadclasscount[typeid][$id]}--><span class="num">$showthreadclasscount[typeid][$id]</span><!--{/if}--></a></li>
+							<!--{else}-->
+							<li><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=typeid&typeid=$id$forumdisplayadd[typeid]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}"><!--{if $_G[forum][threadtypes][icons][$id] && $_G['forum']['threadtypes']['prefix'] == 2}--><img class="vm" src="$_G[forum][threadtypes][icons][$id]" alt="" /> <!--{/if}-->$name<!--{if $showthreadclasscount[typeid][$id]}--><span class="num">$showthreadclasscount[typeid][$id]</span><!--{/if}--></a></li>
+							<!--{/if}-->
+						<!--{/loop}-->
+					<!--{/if}-->
+
+					<!--{if $_G['forum']['threadsorts']}-->
+						<!--{if $_G['forum']['threadtypes']}--><li><span class="pipe">|</span></li><!--{/if}-->
+						<!--{loop $_G['forum']['threadsorts']['types'] $id $name}-->
+							<!--{if $_GET['sortid'] == $id}-->
+							<li class="a"><a href="forum.php?mod=forumdisplay&fid=$_G[fid]{if $_GET['typeid']}&filter=typeid&typeid=$_GET['typeid']{/if}{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">$name<!--{if $showthreadclasscount[sortid][$id]}--><span class="xg1 num">$showthreadclasscount[sortid][$id]</span><!--{/if}--></a></li>
+							<!--{else}-->
+							<li><a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=sortid&sortid=$id$forumdisplayadd[sortid]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}">$name<!--{if $showthreadclasscount[sortid][$id]}--><span class="xg1 num">$showthreadclasscount[sortid][$id]</span><!--{/if}--></a></li>
+							<!--{/if}-->
+						<!--{/loop}-->
+					<!--{/if}-->
+				</ul>
+			<!--{/if}-->
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(function() {
+			$('#subMenu').mmenu({
+				autoHeight	: true,
+				navbar		: {
+					title 	: false
+				},
+				offCanvas	: {
+					position	: "right",
+					zposition	: "front",
+					modal		: true
+				}
+			});
+		});
+	</script>
+	<!--{else}-->
+	<h1>
+		<!--{eval echo strip_tags($_G['forum']['name']) ? strip_tags($_G['forum']['name']) : $_G['forum']['name'];}-->
+	</h1>
+	<!--{/if}-->
+	
+</header>
+<!-- header end -->
+
+<div class="forumListHeader cfix <!--{if $_G['forum'][icon]}-->hasIcon<!--{/if}-->">
+	<!--{if $_G['forum'][icon]}-->
+	<div class="fl_icon fl"><img src="data/attachment/common/$_G['forum'][icon]" alt="$_G['forum'][name]" /></div>
+	<!--{/if}-->
+	<h3>$_G['forum'][name]</h3>
+	<p>
+	<!--{if !$subforumonly}-->
+		<span>{lang index_today}: $_G[forum][todayposts]</span>
+		<span>{lang index_threads}: $_G[forum][threads]</span>
+		<!--{if $_G[forum][rank]}-->
+			<span title="{lang previous_rank}:$_G[forum][oldrank]">{lang rank}: $_G[forum][rank]</span>
+		<!--{/if}-->
+	<!--{/if}-->
+	</p>
+	<a class="fa_fav" href="home.php?mod=spacecp&ac=favorite&type=forum&id=$_G[fid]&handlekey=favoriteforum&formhash={FORMHASH}" id="a_favorite" onclick="showWindow(this.id, this.href, 'get', 0);">收藏<strong class="xi1" id="number_favorite" {if !$_G[forum][favtimes]} style="display:none;"{/if}>(<span id="number_favorite_num">$_G[forum][favtimes]</span>)</strong></a>
+</div>
+
+<div class="forumListTab cfix">
+	<ul>
+		<li>
+			<a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter={if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}" class="{if $_GET['filter'] == ''}cur{/if}">全部</a>
+		</li>
+		<li>
+			<a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=lastpost&orderby=lastpost$forumdisplayadd[lastpost]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}" class="{if $_GET['filter'] == 'lastpost'}cur{/if}">{lang latest}</a>
+		</li>
+		<li>
+			<a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=heat&orderby=heats$forumdisplayadd[heat]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}" class="{if $_GET['filter'] == 'heat'}cur{/if}">{lang order_heats}</a>
+		</li>
+		<li>
+			<a href="forum.php?mod=forumdisplay&fid=$_G[fid]&filter=digest&digest=1$forumdisplayadd[digest]{if $_GET['archiveid']}&archiveid={$_GET['archiveid']}{/if}" class="{if $_GET['filter'] == 'digest'}cur{/if}">{lang digest_posts}</a>
+		</li>
+	</ul>
+</div>
+
+<!--{if !$subforumonly}--> 
+<div class="threadlist">
+<!--{if $_G['forum_threadcount']}--> <!--如果 帖子总数不为 false 或 0-->
+    <!--{if $ceo_piclistopen}--> <!--如果 图文列表打开状态-->
+        <!--如果打开图文列表-->
+		<!--{template forum/forumdisplay_imglist}-->
+    <!--{else}-->
+        <!--如果未打开图文列表-->
+		<!--{template forum/forumdisplay_txtlist}-->
+    <!--{/if}--> 
+<!--{else}-->  <!--如果 帖子总数是 false 或 0-->
+<ul>
+<li class="noData">{lang forum_nothreads}</li>
+</ul>
+<!--{/if}--> 
+</div>
+<!--{/if}-->
+
+<div class="pullrefresh" style="display:none;"></div>
+<style>
+
+</style>
+<!--{template common/btfixed}-->
+<!--{template common/nav}-->
+<!--{template touch/common/footer}-->
+
+

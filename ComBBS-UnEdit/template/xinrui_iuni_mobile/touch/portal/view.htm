@@ -1,0 +1,130 @@
+<!--{template touch/common/header}-->
+<style>
+.atd .atdc{position:relative;margin:0 auto 10px;width:.6rem;height:50px;}
+.atdc div{position:absolute;left:50%;bottom:0;width:.16rem;border-radius:.08rem;margin-left:-.08rem;}
+.atd .ac1{background:#C30;}
+.atd .ac2{background:#0C0;}
+.atd .ac3{background:#F90;}
+.atd .ac4{background:#06F;}
+.atdc em{position:absolute;left:50%;margin:-25px 0 0 -20px;width:40px;text-align:center;color:#999;}
+.dec_tit{font-size:.28rem;color:#999;font-weight:normal;text-align:center;}
+.dec_tit a{color:#009e73;}
+#click_div td a { display: block; color: #999; text-align: center; font-size: .24rem;}
+#click_div td { vertical-align: bottom; }
+</style>
+<header class="header">
+	<a class="goBack fl" href="javascript:history.back()">返回</a>
+	<a class="topShare fr" href="#viewShare">分享</a>
+	<h1>资讯详情</h1>
+</header>
+
+<div class="container">
+	<div id="pt">
+		<a href="$_G[setting][navs][1][filename]">{lang nav_index}</a> <em>&rsaquo;</em>
+		<!--{loop $cat[ups] $value}-->
+			<a href="{echo getportalcategoryurl($value[catid])}">$value[catname]</a><em>&rsaquo;</em>
+		<!--{/loop}-->
+		<a href="{echo getportalcategoryurl($cat[catid])}">$cat[catname]</a> <em>&rsaquo;</em>
+		{lang view_content}
+	</div>
+	<div class="article_view pb">
+		<div class="article_tit">
+			<h1>$article[title] <!--{if $article['status'] == 1}-->({lang moderate_need})<!--{elseif $article['status'] == 2}-->({lang ignored})<!--{/if}--></h1>
+			<p>
+				<span class="fr">$article[dateline]</span>
+				<a href="home.php?mod=space&uid=$article[uid]">$article[username]</a>
+				{lang view_views}：<em id="_viewnum"><!--{if $article[viewnum] > 0}-->$article[viewnum]<!--{else}-->0<!--{/if}--></em>
+				{lang view_comments}：<!--{if $article[commentnum] > 0}--><a href="$common_url" title="{lang view_all_comments}"><em id="_commentnum">$article[commentnum]</em></a><!--{else}-->0<!--{/if}-->
+			</p>
+		</div>
+		<div id="article_content" class="article_con">$content[content]</div>
+		<!--{if $multi}--><div class="ptw pbw cl">$multi</div><!--{/if}-->
+        <div align="center">
+          <!--{if $article['preaid'] || $article['nextaid']}-->
+          <!--{if $article['prearticle']}-->
+         <!-- <a href="{$article['prearticle']['url']}"><img src="{IMGDIR}/h_post.png" /></a>-->
+          <!--{/if}-->
+          <!--{/if}-->
+        </div>
+
+
+<!-- 资讯表态开始 -->
+<div id="click_div">					
+<!--{template home/space_click}-->				
+</div>
+<!-- 资讯表态结束 -->
+
+	</div>
+<!-- 相关阅读开始 -->
+<!--{if $article['related']}-->
+		<div id="related_article" class="bm">
+			<div class="bm_h cl comment_tit">
+				<h3>{lang view_related}</h3>
+			</div>
+			<div class="bm_c bp">
+				<ul class="xl xl2 cl" id="raid_div">
+				<!--{loop $article['related'] $raid $rvalue}-->
+					<input type="hidden" value="$raid" />
+					<li><a href="{$rvalue[uri]}">{$rvalue[title]}</a></li>
+				<!--{/loop}-->
+				</ul>
+			</div>
+		</div>
+		<!--{/if}-->
+<!-- 相关阅读结束 -->
+	<script type="text/javascript" src="{$_G[setting][jspath]}home.js?{VERHASH}"></script>
+
+	<!--{if $article['allowcomment']==1}-->
+		<!--{eval $data = &$article}-->
+		<!--{subtemplate portal/portal_comment}-->  
+	<!--{/if}--> 
+
+</div>
+
+<div id="viewShare" class="viewShare">
+	<div class="bdsharebuttonbox">
+		<div class="wxShare"><a class="jiathis_button_weixin" href="#">微信</a></div>
+		<!-- JiaThis Button BEGIN -->		
+		<div class="jiathis_style_m"></div>
+		<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_m.js" charset=gbk></script>
+		<!-- JiaThis Button END -->
+	</div>
+</div>
+<div class="popMask">
+	<img src="template/xinrui_iuni_mobile/touch/images/img/share.png" />
+</div>
+
+<script type="text/javascript">
+$(function() {
+	$('#viewShare').mmenu({
+		autoHeight	: true,
+		navbar		: {
+			title 	: false
+		},
+		offCanvas	: {
+			position	: "bottom",
+			zposition	: "front",
+			modal		: true
+		}
+	});
+});
+$(function() {
+	$("#mm-blocker").click(function(){
+		$("html").removeClass();
+		$(".viewShare").attr("class","viewShare mm-menu mm-offcanvas mm-bottom mm-front mm-autoheight");
+	});
+	$('.jiathis_button_weixin').click(function(){
+		$(".popMask").show();
+		$("#mm-blocker").trigger("click");
+		return false;
+	});
+	$('.popMask').click(function(){
+		$(this).hide();
+		window.location.reload();
+	})
+});
+</script>
+<!--{template common/btfixed}-->
+<!--{template common/nav}-->
+<!--{template touch/common/footer}--> 
+

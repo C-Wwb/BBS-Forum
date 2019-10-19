@@ -1,0 +1,44 @@
+<!--{template common/header}-->
+
+<!--{if $_GET['op'] == 'requote'}-->
+	[quote]{$comment[username]}: {$comment[message]}[/quote]
+
+<!--{elseif $_GET['op'] == 'edit'}-->
+	<header class="header">
+		<a class="goBack fl" href="javascript:history.back()">·µ»Ø</a>
+		<h1><em id="return_$_GET[handlekey]">{lang edit}ÆÀÂÛ</em></h1>
+	</header>
+	<div class="search">
+		<form id="editcommentform_{$cid}" name="editcommentform_{$cid}" method="post" autocomplete="off" action="portal.php?mod=portalcp&ac=comment&op=edit&cid=$cid{if $_GET[modarticlecommentkey]}&modarticlecommentkey=$_GET[modarticlecommentkey]{/if}">
+			<input type="hidden" name="referer" value="{echo dreferer()}" />
+			<input type="hidden" name="editsubmit" value="true" />
+			<!--{if $_G[inajax]}--><input type="hidden" name="handlekey" value="$_GET[handlekey]" /><!--{/if}-->
+			<input type="hidden" name="formhash" value="{FORMHASH}" />			
+			<textarea id="message_{$cid}" name="message" onkeydown="ctrlEnter(event, 'editsubmit_btn');" rows="8" class="textarea">$comment[message]</textarea>			
+			<button type="submit" name="editsubmit_btn" id="editsubmit_btn" value="true" class="btn1">{lang submit}</button>
+			
+		</form>
+	</div>
+
+<!--{elseif $_GET['op'] == 'delete'}-->
+
+	<header class="header">
+		<a class="goBack fl" href="javascript:history.back()">·µ»Ø</a>
+		<h1><em id="return_$_GET[handlekey]">{lang comment_delete}</em></h1>
+	</header>
+	<div class="search">
+		<form id="deletecommentform_{$cid}" name="deletecommentform_{$cid}" method="post" autocomplete="off" action="portal.php?mod=portalcp&ac=comment&op=delete&cid=$cid">
+			<input type="hidden" name="referer" value="{echo dreferer()}" />
+			<input type="hidden" name="deletesubmit" value="true" />
+			<input type="hidden" name="formhash" value="{FORMHASH}" />
+			<!--{if $_G[inajax]}--><input type="hidden" name="handlekey" value="$_GET[handlekey]" /><!--{/if}-->
+			<div class="del_tips">{lang comment_delete_confirm}</div>
+			<button class="btn1" type="submit" name="deletesubmitbtn" value="true"><strong>{lang confirms}</strong></button>
+		</form>
+	</div>
+
+<!--{/if}-->
+
+<!--{template common/btfixed}-->
+<!--{template common/footer}-->
+
