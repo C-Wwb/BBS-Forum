@@ -6,7 +6,6 @@
 
 This is an open source forum based on discuz！.
 
-参与者：
+参与者：张京宇、武文斌、
 
-Contributors：
-
+Contributors：JingYu Zhang、WenBin Wu、
