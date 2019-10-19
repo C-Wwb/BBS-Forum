@@ -1,0 +1,160 @@
+<!--{if empty($_G['forum']['picstyle']) || $_G['cookie']['forumdefstyle']}-->
+	<!--{if !$subforumonly}-->
+	<div class="threadlist">
+		<ul>                
+		<!--{if $_G['forum_threadcount']}-->
+			<!--{loop $_G['forum_threadlist'] $key $thread}-->
+				<!--{if !$_G['setting']['mobile']['mobiledisplayorder3'] && $thread['displayorder'] > 0}-->
+					{eval continue;}
+				<!--{/if}-->
+				<!--{if $thread['displayorder'] > 0 && !$displayorder_thread}-->
+					{eval $displayorder_thread = 1;}
+				<!--{/if}-->
+				<!--{if $thread['moved']}-->
+					<!--{eval $thread[tid]=$thread[closed];}-->
+				<!--{/if}-->
+				<!--{eval $piccount = setthreadpic($thread[tid],1,'piccount');}-->
+				<li>
+					<a class="forumDisplayImgList" href="forum.php?mod=viewthread&tid=$thread[tid]&extra=$extra">
+						<!--{if $piccount !== 1}-->
+						<div class="threadListTit">
+							<div class="h_avatar"><!--{avatar($thread[authorid],small)}--></div>
+							<h4>
+								<div class="count y">
+									<span class="views icon"><!--{if $thread['isgroup'] != 1}-->$thread[views]<!--{else}-->{$groupnames[$thread[tid]][views]}<!--{/if}--></span>
+									<span class="replies icon">{$thread[replies]}</span>
+								</div>
+								$thread[author]
+							</h4>
+							<p>发布于 $thread[dateline]</p>
+						</div>
+						<h3 class="threadSubject">
+							<!--{if $thread['special'] == 1}-->
+								<span class="threadType">{lang thread_poll}</span>
+							<!--{elseif $thread['special'] == 2}-->
+								<span class="threadType">{lang thread_trade}</span>
+							<!--{elseif $thread['special'] == 3}-->
+								<span class="threadType">{lang thread_reward}</span>
+							<!--{elseif $thread['special'] == 4}-->
+								<span class="threadType">{lang thread_activity}</span>
+							<!--{elseif $thread['special'] == 5}-->
+								<span class="threadType">{lang thread_debate}</span>
+							<!--{elseif in_array($thread['displayorder'], array(1, 2, 3, 4))}-->
+								<span class="threadAttr">$_G[setting][threadsticky][3-$thread[displayorder]]</span>
+							<!--{elseif $thread['digest'] > 0}-->
+								<span class="threadAttr">精华</span>
+							<!--{/if}-->
+							<span  $thread[highlight]>{$thread[subject]}</span>
+						</h3>
+						<!--{/if}-->
+						<!--{if $piccount >= 2}-->
+							<!--{eval $width=$piccount==2?'300':'200';}-->
+							<!--{eval $height=$piccount==2?'180':'200';}-->
+							<div class="forumImgList <!--{if $piccount == 2}-->two<!--{/if}--> mt20">
+								<ul class="cfix">
+									{eval $piclist=setthreadpic($thread[tid],3,'piclist');}
+									{eval $i=1;} 
+									<!--{loop $piclist $key}-->                        
+									<li><span><img src="$key" ></span></li>
+									{eval $i++;} 
+									<!--{/loop}-->
+								</ul>
+							</div>
+						<!--{elseif $piccount == 1}-->
+							<div class="oneImgList cfix">
+								<div class="oneCon fl">
+									<h3 class="threadSubject">
+										<!--{if $thread['special'] == 1}-->
+											<span class="threadType">{lang thread_poll}</span>
+										<!--{elseif $thread['special'] == 2}-->
+											<span class="threadType">{lang thread_trade}</span>
+										<!--{elseif $thread['special'] == 3}-->
+											<span class="threadType">{lang thread_reward}</span>
+										<!--{elseif $thread['special'] == 4}-->
+											<span class="threadType">{lang thread_activity}</span>
+										<!--{elseif $thread['special'] == 5}-->
+											<span class="threadType">{lang thread_debate}</span>
+										<!--{elseif in_array($thread['displayorder'], array(1, 2, 3, 4))}-->
+											<span class="threadAttr">$_G[setting][threadsticky][3-$thread[displayorder]]</span>
+										<!--{elseif $thread['digest'] > 0}-->
+											<span class="threadAttr">精华</span>
+										<!--{/if}-->
+										<span  $thread[highlight]>{$thread[subject]}</span>
+									</h3>
+									<div class="oneInfo">$thread[author] 发布于  $thread[dateline]</div>
+								</div>
+								<div class="oneImg fr">
+									{eval $piclist=setthreadpic($thread[tid],1,'piclist');}
+									<img src="{echo current($piclist)}" />
+								</div>
+							</div>
+						<!--{else}-->
+						
+						<!--{/if}-->
+					</a>
+				</li>
+			<!--{/loop}-->
+		<!--{else}-->
+			<li class="noData">{lang forum_nothreads}</li>
+		<!--{/if}-->
+		</ul>
+	</div>
+	$multipage
+	<!--{/if}-->
+
+
+<!--{else}-->
+
+	<div class="xr_waterfall cfix">
+		<script type="text/javascript" src="template/xinrui_iuni_mobile/touch/images/js/jquery.masonry.min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				var container = $('#waterfall');
+				container.imagesLoaded(function() {
+					container.masonry({
+						itemSelector: '.imgItem',
+						isResizableL: true,
+					});
+				});
+			});
+		</script>	
+		<div id="waterfall" class="waterfall cfix">
+			<!--{loop $_G['forum_threadlist'] $key $thread}-->
+			<!--{if $_G['hiddenexists'] && $thread['hidden']}-->
+				<!--{eval continue;}-->
+			<!--{/if}-->
+			<!--{if !$thread['forumstick'] && ($thread['isgroup'] == 1 || $thread['fid'] != $_G['fid'])}-->
+				<!--{if $thread['related_group'] == 0 && $thread['closed'] > 1}-->
+					<!--{eval $thread[tid]=$thread[closed];}-->
+				<!--{/if}-->
+			<!--{/if}-->
+			<!--{eval $waterfallwidth = $_G[setting][forumpicstyle][thumbwidth] + 24; }-->
+			<div class="imgItem">
+				<a href="forum.php?mod=viewthread&tid=$thread[tid]&{if $_GET['archiveid']}archiveid={$_GET['archiveid']}&{/if}extra=$extra">
+					<div class="img" >
+						<!--{if $thread['cover']}-->
+							<img src="$thread[coverpath]" alt="$thread[subject]" width="{$_G[setting][forumpicstyle][thumbwidth]}"/>
+						<!--{else}-->
+							<span class="no_pic"></span>
+						<!--{/if}-->
+					</div>
+					<h3>
+						$thread[subject]
+					</h3>
+					<div class="desc cfix">
+						$thread[author]
+						<span class="fr">
+							<span class="views icon">$thread[views]</span>
+							<span class="replies icon">$thread[replies]</span>
+						</span>
+					</div>
+				</a>
+				
+			</div>
+			<!--{/loop}-->
+		</div>
+		<div id="tmppic" style="display: none;"></div>
+	</div>
+	$multipage
+<!--{/if}-->
+

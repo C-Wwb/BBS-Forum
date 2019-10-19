@@ -1,0 +1,111 @@
+<div id="postmessage_$post[pid]" class="postmessage">$post[message]</div>
+
+<div class="pollBox">
+<form id="poll" name="poll" method="post" autocomplete="off" action="forum.php?mod=misc&action=votepoll&fid=$_G[fid]&tid=$_G[tid]&pollsubmit=yes{if $_GET[from]}&from=$_GET[from]{/if}&quickforward=yes&mobile=2" >
+	<input type="hidden" name="formhash" value="{FORMHASH}" />
+	<div class="pollTit">
+		<!--{if $multiple}-->
+			<h3>{lang poll_multiple}{lang thread_poll} <!--{if $maxchoices}--><span>( {lang poll_more_than} )</span><!--{/if}--></h3>
+		<!--{else}-->
+			<h3>{lang poll_single}{lang thread_poll}</h3>
+		<!--{/if}-->
+		<div class="pollUser au icon">{lang poll_voterscount}<!--{if $visiblepoll && $_G['group']['allowvote']}-->£¬ {lang poll_after_result}<!--{/if}--></div>		
+		<div class="pollTime time icon">
+			<!--{if $_G[forum_thread][remaintime]}-->
+				{lang poll_count_down}:
+				<!--{if $_G[forum_thread][remaintime][0]}-->$_G[forum_thread][remaintime][0] {lang days}<!--{/if}-->
+				<!--{if $_G[forum_thread][remaintime][1]}-->$_G[forum_thread][remaintime][1] {lang poll_hour}<!--{/if}-->
+				$_G[forum_thread][remaintime][2] {lang poll_minute}			
+			<!--{elseif $expiration && $expirations < TIMESTAMP}-->
+				{lang poll_end}
+			<!--{/if}-->
+		</div>
+	</div>
+
+	<div class="pollCon">
+		
+		<!--{if $isimagepoll}-->
+			<script type="text/javascript" src="template/xinrui_iuni_mobile/touch/images/js/jquery.masonry.min.js"></script>
+			<script type="text/javascript">
+				$(function() {
+					var container = $('#waterfall');
+					container.imagesLoaded(function() {
+						container.masonry({
+							itemSelector: '.imgItem',
+							isResizableL: true,
+						});
+					});
+				});
+			</script>
+			<div id="waterfall" class="waterfall cfix">
+				<!--{loop $polloptions $key $option}-->
+				<!--{eval $imginfo=$option['imginfo'];}-->
+				<div class="imgItem">
+					<label class="pollItem" for="option_$key">
+						<div class="img" >
+							<!--{if $imginfo}-->
+							<img id="aimg_$imginfo[aid]" aid="$imginfo[aid]" src="$imginfo[big]" />
+							<!--{else}-->
+							<img src="{IMGDIR}/nophoto.gif" width="130px" />
+							<!--{/if}-->
+						</div>
+						<h3>
+							<!--{if $_G['group']['allowvote']}-->
+								<input type="$optiontype" id="option_$key" name="pollanswers[]" value="$option[polloptionid]" {if $_G['forum_thread']['is_archived']}disabled="disabled"{/if}  />
+							<!--{/if}-->
+							$key.$option[polloption]
+						</h3>
+						<!--{if !$visiblepoll}-->
+						<div class="desc cfix">
+							$option[percent]% <em style="color:#$option[color]">($option[votes])</em>
+						</div>
+						<!--{/if}-->
+					</label>
+				</div>
+				<!--{/loop}-->
+			</div>
+		
+		<!--{else}-->
+			<div class="voteList">
+				<ul>
+				<!--{loop $polloptions $key $option}-->
+					<li>
+					<label for="option_$key">											
+						<!--{if $_G['group']['allowvote']}-->
+							<input type="$optiontype" id="option_$key" name="pollanswers[]" value="$option[polloptionid]" {if $_G['forum_thread']['is_archived']}disabled="disabled"{/if}  />
+						<!--{/if}-->
+						$key.$option[polloption]
+						<!--{if !$visiblepoll}-->
+						<div class="voteCount">
+							<div class="percent"><span style="width:$option[percent]%"></span></div>
+							<em>$option[percent]% <strong style="color:#$option[color]">($option[votes])</strong></em>
+						</div>
+						<!--{/if}-->
+					</label>					
+					</li>
+				<!--{/loop}-->
+				</ul>
+			</div>
+		<!--{/if}-->
+
+        <!--{if $_G['group']['allowvote'] && !$_G['forum_thread']['is_archived']}-->
+            <input type="submit" name="pollsubmit" id="pollsubmit" value="{lang submit}" class="btn1" />
+		<!--{if $overt}-->
+			<p class="mt20">({lang poll_msg_overt})</p>
+		<!--{/if}-->
+        <!--{elseif !$allwvoteusergroup}-->
+            <!--{if !$_G['uid']}-->
+            <span class="xi1">{lang poll_msg_allwvote_user}</span>
+            <!--{else}-->
+            <span class="xi1">{lang poll_msg_allwvoteusergroup}</span>
+            <!--{/if}-->
+        <!--{elseif !$allowvotepolled}-->
+            <span class="btn_pn_grey">{lang poll_msg_allowvotepolled}</span>
+        <!--{elseif !$allowvotethread}-->
+            <span class="xi1">{lang poll_msg_allowvotethread}</span>
+        <!--{/if}-->
+	</div>
+</form>
+</div>
+
+

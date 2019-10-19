@@ -1,0 +1,42 @@
+<!--{subtemplate touch/common/header}-->
+<!-- header start -->
+<style type=text/css>
+.header {line-height:55px;}
+#db_un_forumdisplay_title {text-align:center;}
+#db_un_forumdisplay_title_fname {color:#fff; margin-right:20px;}
+#db_un_forumdisplay_title_fav {color:#fff; margin-right:20px;}
+</style>
+<header class="header">
+	<div id="db_un_forumdisplay_title">
+        <span id="db_un_forumdisplay_title_fname">
+        	{lang dsu_paulsign:name}
+        </span>
+        <a href="javascript:;" onclick="history.go(-1)">
+        <div class="z" id="db_un_forumdisplay_title_fav" style="text-align:left; margin-left:20px;">
+        	{lang return}上一步
+        </div>
+        </a>
+        
+        <!--{if $_G['setting']['mobile']['mobilehotthread']}-->
+        <a href="forum.php?mod=guide&view=hot">
+        <!--{else}-->
+        <a href="forum.php?mod=guide&view=newthread">
+        <!--{/if}-->
+        <div class="y" id="db_un_forumdisplay_title_fav" style="text-align:right; ">返回{lang homepage}</div>
+        </a>
+        
+   </div>
+</header>
+<!-- header end -->
+
+<div class="wp">
+	<div style="padding:60px 10px; text-align:center;">
+		<div style="line-height:30px; text-indent:2em;">$msg</div>
+        <div style="padding:18px;">
+        	<div style="width:100px; height:26px; margin:0 auto; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; background:#EF6C69; line-height:26px; text-align:center;">
+        	<a href="plugin.php?id=dsu_paulsign:sign&mobile=2" style="color:#FFF;" >{lang dsu_paulsign:encore_03}</a>
+            </div>
+        </div>
+	</div>
+</div>
+<!--{subtemplate touch/common/footer}-->

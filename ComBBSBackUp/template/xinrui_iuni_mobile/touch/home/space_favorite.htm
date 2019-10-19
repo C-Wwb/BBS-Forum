@@ -1,0 +1,54 @@
+<!--{template common/header}-->
+<!-- header start -->
+<header class="header">
+	<a href="home.php?mod=space&uid={$_G[uid]}&do=profile&mycenter=1" class="goBack z"></a>
+	<h1><!--{if $_GET['type'] == 'forum'}-->{lang favforum}<!--{else}-->{lang favthread}<!--{/if}--></h1>
+</div>
+</header>
+
+<div class="forumListTab cfix">
+	<ul>
+		<li style="width:50%;"><a <!--{if $_GET['type'] == 'thread'}-->class="cur"<!--{/if}--> href="home.php?mod=space&uid={$_G[uid]}&do=favorite&view=me&type=thread">{lang favthread}</a></li>
+		<li style="width:50%;"><a <!--{if $_GET['type'] == 'forum'}-->class="cur"<!--{/if}--> href="home.php?mod=space&uid={$_G[uid]}&do=favorite&view=me&type=forum">{lang favforum}</a></li>
+	</ul>
+</div>
+
+<!-- main collectlist start -->
+<div class="fav_list mt20">
+<!--{if $_GET['type'] == 'forum'}-->
+	<ul>
+		<!--{if $list}-->
+			<!--{loop $list $k $value}-->
+			<li>
+				<a class="favTit" href="$value[url]">$value[title]</a>
+				<p><a class="y" id="a_delete_$k" href="home.php?mod=spacecp&ac=favorite&op=delete&favid=$k" onclick="showWindow(this.id, this.href, 'get', 0);">{lang delete}</a> 收藏时间：<!--{date($value[dateline], 'u')}--></p>
+			</li>
+			<!--{/loop}-->
+		<!--{else}-->
+			<li class="noData">{lang no_favorite_yet}</li>
+		<!--{/if}-->
+
+	</ul>
+<!--{else}-->
+	<ul>
+		<!--{if $list}-->
+			<!--{loop $list $k $value}-->
+			<li>
+				<a class="favTit" href="$value[url]">$value[title]</a>
+				<p><a class="y" id="a_delete_$k" href="home.php?mod=spacecp&ac=favorite&op=delete&favid=$k" onclick="showWindow(this.id, this.href, 'get', 0);">{lang delete}</a> 收藏时间：<!--{date($value[dateline], 'u')}--></p>
+			</li>
+			<!--{/loop}-->
+		<!--{else}-->
+			<li class="noData">{lang no_favorite_yet}</li>
+		<!--{/if}-->
+	</ul>
+<!--{/if}-->
+</div>
+<!-- main collectlist end -->
+$multi
+<!--{eval $nofooter = true;}-->
+
+<!--{template common/btfixed}-->
+<!--{template common/footer}-->
+
+

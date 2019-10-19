@@ -1,0 +1,147 @@
+<!--{template common/header}-->
+<!--{if $tagname}-->
+<style>
+.threadListTit h4 {
+    font-size: .28rem;
+    font-weight: normal;
+    line-height: .36rem;
+    color: #666;
+}
+.threadListTit p {
+    font-size: .24rem;
+    color: #999;
+    line-height: .28rem;
+}
+.threadListTit .count span {
+    margin-right: .1rem;
+    line-height: .32rem;
+    height: .32rem;
+}
+</style>
+<div id="ct" class="wp cl">
+	<header class="header">
+	<a class="goBack fl" href="javascript:history.back()">返回</a>
+	<h1>{lang tag}: $tagname</h1>
+</header>
+<div id="pt" class="bm cl">
+	<div class="z">
+		<a href="./" class="nvhm" title="{lang homepage}">$_G[setting][bbname]</a> <em>&rsaquo;</em>
+		<a href="misc.php?mod=tag">{lang tag}</a>
+		<!--{if $tagname}-->
+			<em>&rsaquo;</em>
+			<a href="misc.php?mod=tag&id=$id">$tagname</a>
+		<!--{/if}-->
+		<!--{if $showtype == 'thread'}-->
+			<em>&rsaquo;</em> {lang related_thread}
+		<!--{/if}-->
+		<!--{if $showtype == 'blog'}-->
+			<em>&rsaquo;</em> {lang related_blog}
+		<!--{/if}-->
+	</div>
+</div>
+	<!--{if empty($showtype) || $showtype == 'thread'}-->
+	<!--	<div class="bm tl">
+			<div class="th">
+				<table cellspacing="0" cellpadding="0">
+					<tr>
+						<th><h2>{lang related_thread}</h2></th>
+						<td class="by">{lang forum}</td>
+						<td class="by">{lang author}</td>
+						<td class="num">{lang replies}</td>
+						<td class="by">{lang lastpost}</td>
+					</tr>
+				</table>
+			</div> -->
+			<div class="threadlist">
+				<!--{if $threadlist}-->
+					<ul>
+						<!--{loop $threadlist $thread}-->
+							<li style="list-style:none;">
+								
+<!--<a href="forum.php?mod=viewthread&tid=$thread[tid]" target="_blank" $thread[highlight]>
+<div class="threadListTit"> -->
+<a href="forum.php?mod=viewthread&tid=$thread[tid]&mobile=2" >
+<div class="threadListTit">
+<!-- 头像 --><div class="h_avatar"><img src="uc_server/images/noavatar_small.gif"><!--{avatar($thread[authorid],small)}--></div>
+<h4><div class="count y"><span class="views icon"><!--{if $thread['isgroup'] != 1}-->$thread[views]<!--{else}-->{$groupnames[$thread[tid]][views]}<!--{/if}--></span>
+									<span class="replies icon">{$thread[replies]}</span></div>
+$thread[author]
+</h4>
+<p>发布于 2016-5-25</p>
+</div>
+<h3 class="threadSubject">
+							<!--{if $thread['special'] == 1}-->
+								<span class="threadType">{lang thread_poll}</span>
+							<!--{elseif $thread['special'] == 2}-->
+								<span class="threadType">{lang thread_trade}</span>
+							<!--{elseif $thread['special'] == 3}-->
+								<span class="threadType">{lang thread_reward}</span>
+							<!--{elseif $thread['special'] == 4}-->
+								<span class="threadType">{lang thread_activity}</span>
+							<!--{elseif $thread['special'] == 5}-->
+								<span class="threadType">{lang thread_debate}</span>
+							<!--{elseif in_array($thread['displayorder'], array(1, 2, 3, 4))}-->
+								<span class="threadAttr">$_G[setting][threadsticky][3-$thread[displayorder]]</span>
+							<!--{elseif $thread['digest'] > 0}-->
+								<span class="threadAttr">精华</span>
+							<!--{/if}-->
+							<span  $thread[highlight]>{$thread[subject]}</span>
+						</h3>
+
+
+								
+								</a>
+							</li>
+						<!--{/loop}-->
+					</ul></div>
+					<!--{if empty($showtype)}-->
+						
+					<!--{else}-->
+						<!--{if $multipage}--><div class="pgs mtm cl">$multipage</div><!--{/if}-->
+					<!--{/if}-->
+				<!--{else}-->
+					<p class="emp">{lang no_content}</p>
+				<!--{/if}-->
+			</div>
+		</div>
+	<!--{/if}-->
+
+	<!--{if helper_access::check_module('blog') && (empty($showtype) || $showtype == 'blog')}-->
+		<div class="bm">
+			<div class="bm_h">
+				<h2>{lang related_blog}</h2>
+			</div>
+			<div class="bm_c">
+				<!--{if $bloglist}-->
+<!-- 444 -->
+					<!--{if empty($showtype)}-->
+						<div class="ptm">
+							<a class="xi2" href="misc.php?mod=tag&id=$id&type=blog">{lang more}...</a>
+						</div>
+					<!--{else}-->
+						<!--{if $multipage}--><div class="pgs mtm cl">$multipage</div><!--{/if}-->
+					<!--{/if}-->
+				<!--{else}-->
+					<p class="emp">{lang no_content}</p>
+				<!--{/if}-->
+			</div>
+		</div>
+	<!--{/if}-->
+</div>
+<!--{else}-->
+	<div id="ct" class="wp cl">
+		<h1 class="mt"><img class="vm" src="{IMGDIR}/tag.gif" alt="tag" /> {lang tag}: $searchtagname</h1>
+		<div class="bm">
+			<div class="bm_c">
+				<form method="post" action="misc.php?mod=tag" class="pns">
+					<input type="text" name="name" class="px vm" size="30" />&nbsp;
+					<button type="submit" class="pn vm"><em>{lang search}</em></button>
+				</form>
+				<div class="taglist mtm mbm"><p class="emp">{lang empty_tags}</p></div>
+			</div>
+		</div>
+	</div>
+<!--{/if}-->
+<!--{template common/btfixed}-->
+<!--{template common/nav}-->
+<!--{template common/footer}-->

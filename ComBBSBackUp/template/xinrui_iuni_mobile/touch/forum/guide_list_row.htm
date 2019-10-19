@@ -1,0 +1,42 @@
+<!--{if $list['threadcount']}-->
+<ul>
+	<!--{loop $list['threadlist'] $key $thread}-->
+		<li>
+			<a href="forum.php?mod=viewthread&tid=$thread[tid]&fromguid=hot&{if $_GET['archiveid']}archiveid={$_GET['archiveid']}&{/if}extra=$extra">
+				<!--{if !$thread['forumstick'] && $thread['closed'] > 1 && ($thread['isgroup'] == 1 || $thread['fid'] != $_G['fid'])}-->
+						<!--{eval $thread[tid]=$thread[closed];}-->
+				<!--{/if}-->
+				
+				<div class="threadListTit">
+					<div class="h_avatar"><!--{avatar($thread[authorid],small)}--></div>
+					<h4>
+						<div class="count y">
+							<span class="views icon"><!--{if $thread['isgroup'] != 1}-->$thread[replies]<!--{else}-->{$groupnames[$thread[tid]][replies]}<!--{/if}--></span>
+							<span class="replies icon">{$thread[replies]}</span>
+						</div>
+						$thread[author]
+						<!--
+						<!--{if in_array($thread['displayorder'], array(1, 2, 3, 4))}-->
+							<span class="icon_top"><img src="{STATICURL}image/mobile/images/icon_top.png"></span>
+						<!--{elseif $thread['digest'] > 0}-->
+							<span class="icon_top"><img src="{STATICURL}image/mobile/images/icon_digest.png"></span>
+						<!--{elseif $thread['attachment'] == 2 && $_G['setting']['mobile']['mobilesimpletype'] == 0}-->
+							<span class="icon_tu"><img src="{STATICURL}image/mobile/images/icon_tu.png"></span>
+						<!--{/if}-->
+						-->
+					</h4>
+					<p>·¢²¼ÓÚ $thread[dateline]</p>
+				</div>
+				<h3 class="threadSubject">
+					$thread[typehtml] $thread[sorthtml] $thread[subject]
+				</h3>
+			</a>
+		</li>
+
+	<!--{/loop}-->
+</ul>
+<!--{else}-->
+<p class="noData">{lang guide_nothreads}</p>
+<!--{/if}-->
+
+

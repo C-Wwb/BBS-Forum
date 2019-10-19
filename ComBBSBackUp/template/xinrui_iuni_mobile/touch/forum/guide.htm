@@ -1,0 +1,60 @@
+<!--{template common/header}-->
+<!-- header start -->
+<header class="header">
+	<!--{if $_G['setting']['domain']['app']['mobile']}-->
+		{eval $nav = 'http://'.$_G['setting']['domain']['app']['mobile'];}
+	<!--{else}-->
+		{eval $nav = "forum.php";}
+	<!--{/if}-->
+	<a class="topMenu fl" href="#mainNv">菜单</a>
+	<h1>导读</h1>
+</header>
+<!-- header end -->
+
+<div class="container">
+	<script src="template/xinrui_iuni_mobile/touch/images/js/TouchSlide.1.1.js" type="text/javascript"></script>
+	<!--二级导航-->
+	<div class="nvBar">
+		<div class="subNv">
+			<!--{block/30}-->
+		</div>
+	</div>
+
+	<!--焦点图-->
+	<div class="xrSlider" id="xrSlider">
+		<!--{block/24}-->
+	</div>
+	<script type="text/javascript">
+	TouchSlide({ 
+		slideCell:"#xrSlider",
+		titCell:".sliderNum li", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+		mainCell:".sliderCon ul", 
+		effect:"leftLoop",
+		autoPlay:true //自动播放
+	});
+	</script>
+
+	<div class="forumListTab cfix">
+		<ul>
+			<li $currentview['newthread']><a href="forum.php?mod=guide&view=newthread">{lang guide_newthread}</a></li>
+			<li $currentview['hot']><a href="forum.php?mod=guide&view=hot">{lang guide_hot}</a></li>
+			<li $currentview['digest']><a href="forum.php?mod=guide&view=digest">{lang guide_digest}</a></li>
+			<li $currentview['new']><a href="forum.php?mod=guide&view=new">{lang guide_new}</a></li>
+		</ul>
+	</div>
+
+	<!-- main threadlist start -->
+	<div class="threadlist">
+		<!--{loop $data $key $list}-->
+			<!--{subtemplate forum/guide_list_row}-->  
+		<!--{/loop}-->
+	</div>
+	<!-- main threadlist end -->
+	$multipage
+	<div class="pullrefresh" style="display:none;"></div>
+</div>
+<!--{template common/btfixed}-->
+<!--{template common/nav}-->
+<!--{template common/footer}-->
+
+

@@ -1,0 +1,45 @@
+<!--{template common/header}-->
+
+<!--{if $_GET['op'] == 'delete'}-->
+	<header class="header">
+		<a class="goBack fl" href="javascript:history.back()">返回</a>
+		<h1>删除收藏</h1>
+	</header>
+	<div class="search">
+		<form id="favoriteform_{$favid}" name="favoriteform_{$favid}" method="post" autocomplete="off" action="home.php?mod=spacecp&ac=favorite&op=delete&favid=$favid&type=$_GET[type]&mobile=2">
+			<input type="hidden" name="referer" value="{eval echo dreferer();}" />
+			<input type="hidden" name="deletesubmit" value="true" />
+			<input type="hidden" name="formhash" value="{FORMHASH}" />
+			<div class="del_tips">{lang delete_favorite_message}</div>
+			<input type="submit" name="deletesubmitbtn" value="{lang determine}" class="formdialog btn1">
+		</form>
+	</div>
+<!--{else}-->
+	<header class="header">
+		<a class="goBack fl" href="javascript:history.back()">返回</a>
+		<h1>收藏主题</h1>
+	</header>
+	<div class="search">
+	<form method="post" autocomplete="off" id="favoriteform_{$id}" name="favoriteform_{$id}" action="home.php?mod=spacecp&ac=favorite&type=$type&id=$id&spaceuid=$spaceuid&mobile=2" >
+		<input type="hidden" name="favoritesubmit" value="true" />
+		<input type="hidden" name="referer" value="{eval echo dreferer();}" />
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+		<p>
+			<!--{if $_GET[type] == 'forum'}-->{lang favorite_forum_confirm}<!--{elseif $_GET[type] == 'thread'}--> {lang favorite_thread_confirm}<!--{/if}--><br />
+			<strong>{$title}</strong>
+		</p>
+		<p class="mt20">{lang favorite_description}:</p>
+		<textarea id="general_{$id}" name="description" rows="1" class="textarea" ><!--{if $description}-->$description<!--{else}-->{lang favorite_description_default}<!--{/if}--></textarea>
+		<p class="mt20 cfix">
+			<input type="submit" name="favoritesubmit_btn" id="favoritesubmit_btn"  value="{lang determine}" class="formdialog btn4 wp65 z">
+			<a class="btn5 wp25 y" href="javascript:;" onclick="popup.close();">{lang cancel}</a>
+		</p>
+	</form>
+	</div>
+<!--{/if}-->
+
+
+<!--{template common/btfixed}-->
+<!--{template common/footer}-->
+
+
