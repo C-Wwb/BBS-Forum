@@ -14,7 +14,7 @@ require_once '../../source/class/class_core.php';
 
 $cachelist = array();
 $discuz = C::app();
-$discuz->init_setting = true;//初始化设置
+$discuz->init_setting = true;
 $discuz->init();
 
 $body = '';
