@@ -1,0 +1,112 @@
+<!--{if $debate[umpire]}-->
+	<!--{if $debate['umpirepoint']}-->
+	<div>
+		<p>
+			<!--{if $debate[winner]}-->
+			<!--{if $debate[winner] == 1}-->
+			<label><strong>{lang debate_square}</strong>{lang debate_winner}</label>
+			<!--{elseif $debate[winner] == 2}-->
+			<label><strong>{lang debate_opponent}</strong>{lang debate_winner}</label>
+			<!--{else}-->
+			<label><strong>{lang debate_draw}</strong></label>
+			<!--{/if}-->
+			<!--{/if}-->
+			<em>{lang debate_comment_dateline}: $debate[endtime]</em>
+		</p>
+		<!--{if $debate[umpirepoint]}--><p><strong>{lang debate_umpirepoint}</strong>: $debate[umpirepoint]</p><!--{/if}-->
+		<!--{if $debate[bestdebater]}--><p><strong>{lang debate_bestdebater}</strong>: $debate[bestdebater]</p><!--{/if}-->
+	</div>
+	<!--{/if}-->
+<!--{/if}-->
+<div class="debateItem">
+	<ul>
+		<li class="square">
+			<div class="point_chart">
+				<div class="chart" style="height: {echo $debate[affirmvoteswidth]}%;" title="{lang debate_square} ($debate[affirmvotes])"></div>
+			</div>
+		</li>
+		<li class="debateVs"></li>
+		<li class="opposition">
+			<div class="point_chart">
+				<div class="chart" style="height: {echo $debate[negavoteswidth]}%;" title="{lang debate_opponent} ($debate[negavotes])"></div>
+			</div>
+		</li>
+	</ul>
+</div>
+
+<div class="debateTit">
+<!--{if $debate[endtime]}-->
+	{lang endtime}: $debate[endtime] <!--{if $debate[umpire]}-->{lang debate_umpire}: $debate[umpire]<!--{/if}-->
+<!--{/if}-->
+<!--{if $debate[umpire] && $_G['username'] && $debate[umpire] == $_G['member']['username']}-->
+	<p class="mtn">
+	<!--{if $debate[remaintime] && !$debate[umpirepoint]}-->
+	 <a href="forum.php?mod=misc&action=debateumpire&tid=$_G[tid]&pid=$post[pid]{if $_GET[from]}&from=$_GET[from]{/if}" >{lang debate_umpire_end}</a>
+	<!--{elseif TIMESTAMP - $debate['dbendtime'] < 3600}-->
+	 <a href="forum.php?mod=misc&action=debateumpire&tid=$_G[tid]&pid=$post[pid]{if $_GET[from]}&from=$_GET[from]{/if}" >{lang debate_umpirepoint_edit}</a>
+	<!--{/if}-->
+	</p>
+<!--{/if}-->
+</div>
+
+<div class="debateCon cfix">
+	<table cellpadding="0" cellspacing="1" border="0">
+		<tr>
+			<td width="50%">
+				<!--{if !$_G['forum_thread']['is_archived']}--><a class="sq_btn" href="forum.php?mod=misc&action=debatevote&tid=$_G[tid]&stand=1" id="affirmbutton" >{lang debate_support}正方</a><!--{/if}-->
+			</td>
+			<td>
+				<a class="op_btn" href="forum.php?mod=misc&action=debatevote&tid=$_G[tid]&stand=2" id="negabutton" >{lang debate_support}反方</a>
+			</td>
+		</tr>
+		<tr>
+			<td valign="top">
+				<strong class="tac">{lang debate_square_point} ($debate[affirmvotes]) </strong>
+				<p>$debate[affirmpoint]</p>
+			</td>
+			<td valign="top">
+				<strong class="tac">{lang debate_opponent_point} ($debate[negavotes]) </strong>
+				<p>$debate[negapoint]</p>
+			</td>
+		</tr>
+		<!--{if !$_G['forum_thread']['is_archived']}-->
+		<tr>			
+			<td valign="top">
+				<div class="debatePlayer">
+					<h4>
+					<a class="fr" href="forum.php?mod=post&action=reply&fid=$_G[fid]&tid=$_G[tid]&stand=1{if $_GET[from]}&from=$_GET[from]{/if}" onclick="showWindow('reply', this.href)">{lang debate_join}</a>
+					{lang debater}：$debate[affirmdebaters]
+					</h4>
+					<ul class="cfix">
+						<!--{loop $debate[affirmavatars] $user}-->
+						<li>
+							<a title="$user[author]" href="home.php?mod=space&uid=$user[authorid]">$user[avatar]</a>
+							<p><a href="home.php?mod=space&uid=$user[authorid]">$user[author]</a></p>
+						</li>
+						<!--{/if}-->
+					</ul>
+				</div>
+			</td>
+			<td valign="top">
+				<div class="debatePlayer">
+					<h4>
+						<a class="fr" href="forum.php?mod=post&action=reply&fid=$_G[fid]&tid=$_G[tid]&stand=2{if $_GET[from]}&from=$_GET[from]{/if}" onclick="showWindow('reply', this.href)">{lang debate_join}</a>
+						{lang debater}：$debate[negadebaters]
+					</h4>
+					<ul class="cfix">
+						<!--{loop $debate[negaavatars] $user}-->
+						<li>
+							<a title="$user[author]" href="home.php?mod=space&uid=$user[authorid]">$user[avatar]</a>
+							<p>$user[author]</p>
+						</li>
+						<!--{/if}-->
+					</ul>
+				</div>
+			</td>
+		</tr>
+		<!--{/if}-->
+	</table>
+</div>
+
+<div id="postmessage_$post[pid]" class="postmessage">$post[message]</div>
+

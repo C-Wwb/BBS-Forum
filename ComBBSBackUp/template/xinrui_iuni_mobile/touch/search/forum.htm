@@ -1,0 +1,58 @@
+<!--{template common/header}-->
+<!-- header start -->
+<header class="header">
+	<!--{if $_G['setting']['domain']['app']['mobile']}-->
+		{eval $nav = 'http://'.$_G['setting']['domain']['app']['mobile'];}
+	<!--{else}-->
+		{eval $nav = "forum.php";}
+	<!--{/if}-->
+	<a class="goBack fl" title="$_G[setting][bbname]" href="$nav">返回</a>
+	<h1>搜索主题</h1>
+</header>
+<!-- header end -->
+<div class="forumListTab cfix">
+<ul><li style="width:50%" class="a"><a href="search.php?mod=forum&mobile=2">搜索帖子</a></li>
+    <li style="width:50%"><a href="search.php?mod=protal&mobile=2">搜索文章</a></li>
+</ul>
+</div>
+
+<div class="search_Con mt20">
+<form id="searchform" class="searchform" method="post" autocomplete="off" action="search.php?mod=forum&mobile=2">
+	<input type="hidden" name="formhash" value="{FORMHASH}" />
+	<!--{subtemplate search/pubsearch}-->
+	<!--{eval $policymsgs = $p = '';}-->
+	<!--{loop $_G['setting']['creditspolicy']['search'] $id $policy}-->
+	<!--{block policymsg}--><!--{if $_G['setting']['extcredits'][$id][img]}-->$_G['setting']['extcredits'][$id][img] <!--{/if}-->$_G['setting']['extcredits'][$id][title] $policy $_G['setting']['extcredits'][$id][unit]<!--{/block}-->
+	<!--{eval $policymsgs .= $p.$policymsg;$p = ', ';}-->
+	<!--{/loop}-->
+	<!--{if $policymsgs}--><p>{lang search_credit_msg}</p><!--{/if}-->
+</form>
+
+
+<div id="scbar_hot" class="cfix">
+						<!--{if $_G['setting']['srchhotkeywords']}-->
+							<span>{lang hot_search}: </span>
+							<!--{loop $_G['setting']['srchhotkeywords'] $val}-->
+								<!--{if $val=trim($val)}-->
+									<!--{eval $valenc=rawurlencode($val);}-->
+									<!--{block srchhotkeywords[]}-->
+										<!--{if !empty($searchparams[url])}-->
+											<a href="$searchparams[url]?q=$valenc&source=hotsearch{$srchotquery}" target="_blank" class="xi2" sc="1">$val</a>
+										<!--{else}-->
+											<a href="search.php?mod=forum&srchtxt=$valenc&formhash={FORMHASH}&searchsubmit=true&source=hotsearch" target="_blank" class="xi2" sc="1">$val</a>
+										<!--{/if}-->
+									<!--{/block}-->
+								<!--{/if}-->
+							<!--{/loop}-->
+							<!--{echo implode('', $srchhotkeywords);}-->
+						<!--{/if}-->
+					</div>
+
+<!--{if !empty($searchid) && submitcheck('searchsubmit', 1)}-->
+	<!--{subtemplate search/thread_list}-->
+<!--{/if}-->
+</div>
+<!--{template common/btfixed}-->
+<!--{template common/footer}-->
+
+

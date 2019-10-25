@@ -1,0 +1,13 @@
+/*
+[name]·ÛÉ«[/name]
+[iconbgcolor]#ff4f57[/iconbgcolor]
+name£ºxinrui_iuni_mobile
+Powered by xinrui
+*/
+.header,.ausPtNum li.on,.indexLogin a,.btFixed li a.btPost,.btn1,.btn_pn,.btn4{background-color:#ff4f57;}
+.btFixed li .cur span{background-image:url(bt_icon_cur.png);}
+.forumListHeader{background-color:#ff646b}
+.btn2,.forumListTab li a.cur, .forumListTab li.a a{border-color:#ff4f57;}
+.btn2{color:#ff4f57 !important;}
+.btn_pn_grey{background:#ddd;}
+a:active,a:hover {outline: 0 none;color:#ff4f57;}

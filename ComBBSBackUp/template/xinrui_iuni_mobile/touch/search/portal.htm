@@ -1,0 +1,44 @@
+<!--{template common/header}-->
+<!-- header start -->
+<header class="header">
+	<!--{if $_G['setting']['domain']['app']['mobile']}-->
+		{eval $nav = 'http://'.$_G['setting']['domain']['app']['mobile'];}
+	<!--{else}-->
+		{eval $nav = "forum.php";}
+	<!--{/if}-->
+	<a class="goBack fl" title="$_G[setting][bbname]" href="$nav">·µ»Ø</a>
+	<h1>ËÑË÷ÎÄÕÂ</h1>
+</header>
+<!-- header end -->
+
+<div class="forumListTab cfix">
+<ul><li style="width:50%"><a href="search.php?mod=forum&mobile=2">ËÑË÷Ìû×Ó</a></li>
+    <li style="width:50%" class="a"><a href="search.php?mod=protal&mobile=2">ËÑË÷ÎÄÕÂ</a></li>
+</ul>
+</div>
+
+
+<div class="search_Con mt20">
+<form id="searchform" class="searchform" method="post" autocomplete="off" action="search.php?mod=portal&mobile=2">
+	<input type="hidden" name="formhash" value="{FORMHASH}" />
+	<!--{subtemplate search/pubsearch1}-->
+	<!--{eval $policymsgs = $p = '';}-->
+	<!--{loop $_G['setting']['creditspolicy']['search'] $id $policy}-->
+	<!--{block policymsg}--><!--{if $_G['setting']['extcredits'][$id][img]}-->$_G['setting']['extcredits'][$id][img] <!--{/if}-->$_G['setting']['extcredits'][$id][title] $policy $_G['setting']['extcredits'][$id][unit]<!--{/block}-->
+	<!--{eval $policymsgs .= $p.$policymsg;$p = ', ';}-->
+	<!--{/loop}-->
+	<!--{if $policymsgs}--><p>{lang search_credit_msg}</p><!--{/if}-->
+</form>
+
+
+
+
+
+<!--{if !empty($searchid) && submitcheck('searchsubmit', 1)}-->
+	<!--{subtemplate search/portal_list}-->
+<!--{/if}-->
+</div>
+<!--{template common/btfixed}-->
+<!--{template common/footer}-->
+
+
